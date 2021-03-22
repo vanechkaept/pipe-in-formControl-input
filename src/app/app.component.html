@@ -1,0 +1,26 @@
+<form [formGroup]="fg" class="spaced">
+  <h3>Nested in Group:</h3>
+  <div formGroupName="address" class="spaced">
+    <label>
+      By value changes: 
+      <input type="text" formControlName="street" placeholder='5'>
+      valid: {{fg.get('address').get('street')?.valid}}
+    </label>
+    <br>
+    <br>
+    <label *ngIf="this.fg.get(['address', 'classNumber']) as control">
+      By function: 
+      <input type="text" [value]="control.value | currency: 'RUB':'':'1.0-2' "  placeholder='class text'
+      (keyup)="saveValue($event, control)" >
+    </label>
+    <!-- [value]="control.value"  placeholder='class number'
+      (blur)="control.patchValue($event)"  -->
+  </div>
+
+</form>
+
+<div>form valid: {{fg?.valid}}</div>
+<h4> This form value: </h4>
+<div>
+  <pre> {{fg.value | json}} </pre>
+</div>
